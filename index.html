@@ -1,0 +1,197 @@
+import React, { useEffect, useRef } from 'react';
+import { ScrollText, MapPin, Phone, Mail, Award, Shield, Zap } from 'lucide-react';
+
+const LandingPage = () => {
+  const heroRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const updateScroll = () => {
+      if (heroRef.current) {
+        const scrolled = window.scrollY;
+        heroRef.current.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', updateScroll);
+    return () => window.removeEventListener('scroll', updateScroll);
+  }, []);
+
+  const features = [
+    { icon: Shield, title: "Secure Processing", desc: "State-of-the-art encryption and security protocols" },
+    { icon: Zap, title: "Fast Setup", desc: "Quick and easy onboarding process" },
+    { icon: Award, title: "Best Rates", desc: "0% debit and 1% credit card processing" }
+  ];
+
+  const services = [
+    'Merchant Services', 
+    'Payment Processing', 
+    'Equipment Solutions',
+    'ATM Leases',
+    'Cash Advances',
+    'Financial Suite'
+  ];
+
+  const testimonials = [
+    {
+      quote: "Switching to FM Payments was the best business decision we've made this year.",
+      author: "Local Restaurant Owner",
+      location: "Montgomery, AL"
+    },
+    {
+      quote: "The savings are real. Our processing fees dropped dramatically.",
+      author: "Retail Store Manager",
+      location: "Birmingham, AL"
+    },
+    {
+      quote: "Exceptional service and support. Heather is always there when we need her.",
+      author: "E-commerce Business Owner",
+      location: "Atlanta, GA"
+    }
+  ];
+
+  return (
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* Fixed Hero Image Container */}
+      <div 
+        ref={heroRef}
+        className="fixed inset-0 w-full h-screen"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
+        <img
+          src="/api/placeholder/1920/1080"
+          alt="Heather Glenn"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative min-h-screen flex items-center justify-center px-4">
+        <div className="backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 shadow-xl max-w-2xl">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            Revolutionary Payment Processing
+          </h1>
+          <p className="text-xl text-white/90 mb-6">
+            0% Debit | 1% Credit Card Processing
+          </p>
+          <button className="bg-lime-500 hover:bg-lime-600 text-white px-8 py-3 rounded-lg font-semibold transition-all">
+            Get Started
+          </button>
+        </div>
+      </div>
+
+      {/* Scrolling Content */}
+      <div ref={contentRef} className="relative z-10 bg-transparent mt-screen">
+        {/* Features Section */}
+        <div className="py-24 px-4">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="backdrop-blur-md bg-white/10 p-8 rounded-xl border border-white/20 shadow-xl text-center">
+                <Icon className="w-12 h-12 text-lime-500 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
+                <p className="text-white/80">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Services Section */}
+        <div className="py-24 px-4 backdrop-blur-sm bg-black/30">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              Comprehensive Financial Solutions
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <div key={service} 
+                     className="backdrop-blur-md bg-white/10 p-6 rounded-xl border border-white/20 shadow-xl 
+                                transform hover:-translate-y-1 transition-all">
+                  <h3 className="text-xl font-semibold text-white mb-3">{service}</h3>
+                  <p className="text-white/80">
+                    Professional solutions tailored to your business needs.
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Testimonials Section */}
+        <div className="py-24 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              What Our Clients Say
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="backdrop-blur-md bg-white/10 p-8 rounded-xl border border-white/20 shadow-xl">
+                  <p className="text-white/90 italic mb-4">"{testimonial.quote}"</p>
+                  <div className="text-white/80">
+                    <p className="font-semibold">{testimonial.author}</p>
+                    <p className="text-sm flex items-center gap-2">
+                      <MapPin size={14} />
+                      {testimonial.location}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Section */}
+        <div className="py-24 px-4 backdrop-blur-sm bg-black/30">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              Let's Talk About Your Business
+            </h2>
+            <div className="backdrop-blur-md bg-white/10 p-8 rounded-xl border border-white/20 shadow-xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <a href="tel:+1234567890" 
+                   className="flex items-center gap-4 text-white hover:text-lime-500 transition-colors">
+                  <Phone className="w-6 h-6" />
+                  <span>Call Heather</span>
+                </a>
+                <a href="mailto:heatherglenn@fm-pay.com" 
+                   className="flex items-center gap-4 text-white hover:text-lime-500 transition-colors">
+                  <Mail className="w-6 h-6" />
+                  <span>heatherglenn@fm-pay.com</span>
+                </a>
+              </div>
+              <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input 
+                  type="text" 
+                  placeholder="Name" 
+                  className="bg-white/10 text-white placeholder-white/50 p-3 rounded-lg border border-white/20"
+                />
+                <input 
+                  type="email" 
+                  placeholder="Email" 
+                  className="bg-white/10 text-white placeholder-white/50 p-3 rounded-lg border border-white/20"
+                />
+                <textarea 
+                  placeholder="Message" 
+                  className="bg-white/10 text-white placeholder-white/50 p-3 rounded-lg border border-white/20 md:col-span-2"
+                  rows={4}
+                />
+                <button 
+                  type="submit" 
+                  className="bg-lime-500 hover:bg-lime-600 text-white px-8 py-3 rounded-lg font-semibold transition-all md:col-span-2"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-bounce">
+          <ScrollText size={32} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LandingPage;
